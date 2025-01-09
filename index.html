@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Flashcards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+
+    #app {
+      text-align: center;
+    }
+
+    .flashcard {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      width: 300px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="flashcard">
+      <h1 id="french-word">Loading...</h1>
+      <p id="example-sentence"></p>
+      <p id="translation"></p>
+    </div>
+    <button id="next-button">Next</button>
+  </div>
+
+  <script>
+    const words = [
+      { french_word: "Bonjour", example_sentence: "Bonjour tout le monde!", translation: "Hello everyone!" },
+      { french_word: "Merci", example_sentence: "Merci beaucoup!", translation: "Thank you very much!" },
+      { french_word: "Pomme", example_sentence: "J'aime la pomme.", translation: "I like the apple." },
+      { french_word: "Chat", example_sentence: "Le chat est noir.", translation: "The cat is black." },
+      { french_word: "Maison", example_sentence: "C'est ma maison.", translation: "This is my house." }
+    ];
+
+    let usedWords = [];
+
+    function getNextWord() {
+      if (words.length === 0) {
+        alert("You've gone through all the words! Restarting...");
+        words.push(...usedWords);
+        usedWords = [];
+      }
+
+      const randomIndex = Math.floor(Math.random() * words.length);
+      const word = words.splice(randomIndex, 1)[0];
+      usedWords.push(word);
+
+      document.getElementById("french-word").innerText = word.french_word;
+      document.getElementById("example-sentence").innerText = word.example_sentence;
+      document.getElementById("translation").innerText = word.translation;
+    }
+
+    document.getElementById("next-button").addEventListener("click", getNextWord);
+
+    // Initialize the first word
+    getNextWord();
+  </script>
+</body>
+</html>
